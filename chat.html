@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Chat Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+    .chat-message {
+      margin-bottom: 10px;
+    }
+    .chat-message .user {
+      font-weight: bold;
+    }
+    .chat-message .timestamp {
+      font-size: 0.8rem;
+      color: gray;
+    }
+  </style>
+  <script>
+    let currentUser  = '';
+
+    function selectUser (userName) {
+      currentUser  = userName;
+      document.getElementById('chat-header').innerText = `Chat with ${currentUser }`;
+      document.getElementById('chat-box').innerHTML = ''; // Clear previous messages
+    }
+
+    function sendMessage() {
+      const messageInput = document.getElementById('message-input');
+      const messageText = messageInput.value.trim();
+      if (messageText && currentUser ) {
+        const chatBox = document.getElementById('chat-box');
+        const timestamp = new Date().toLocaleTimeString();
+        const messageHTML = `
+          <div class="chat-message">
+            <span class="user">You:</span> <span>${messageText}</span>
+            <div class="timestamp">${timestamp}</div>
+          </div>
+        `;
+        chatBox.innerHTML += messageHTML;
+        messageInput.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+      }
+    }
+  </script>
+</head>
+<body class="flex min-h-screen bg-gray-600 font-sans">
+  <!-- Sidebar -->
+  <nav class="fixed top-0 left-0 h-full flex flex-col justify-between bg-blue-600 w-48 p-6">
+    <div class="space-y-6">
+      <a href="y.home.html">
+        <button class="w-full bg-gray-600 rounded-full py-3 text-lg text-black hover:bg-gray-700 transition">Home</button>
+      </a>
+      <div class="mt-4">
+        <a href="z.explore.html">
+          <button class="w-full bg-gray-600 rounded-full py-3 text-lg text-black hover:bg-gray-700 transition">Explore</button>
+        </a>
+      </div>
+      <div class="mt-4">
+        <a href="me.html">
+          <button class="w-full bg-gray-600 rounded-full py-3 text-lg text-black hover:bg-gray-700 transition">Me</button>
+        </a>
+      </div>
+      <div class="mt-4">
+        <button onclick="toggleChat()" class="w-full bg-gray-600 rounded-full py-3 text-lg text-black hover:bg-gray-700 transition">Chat</button>
+      </div>
+    </div>
+    <a href="1welcome.html">
+      <button class="w-full bg-gray-600 rounded-full py-3 text-lg text-black hover:bg-gray-700 transition">Log out</button>
+    </a>
+  </nav>
+  <!-- Main content -->
+  <main class="flex-1 p-8 text-center text-white ml-48">
+    <h1 class="text-4xl font-bold mb-6">Chat Dashboard</h1>
+    <!-- User Selection -->
+    <div class="mb-4">
+      <h2 class="text-2xl font-bold">Select a User:</h2>
+      <div class="flex flex-wrap justify-center mt-2">
+        <button onclick="selectUser ('Asep')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Asep</button>
+        <button onclick="selectUser ('Chen')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Chen</button>
+        <button onclick="selectUser ('Faqih')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Faqih</button>
+        <button onclick="selectUser ('Helmi')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Helmi</button>
+        <button onclick="selectUser ('Jake')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Jake</button>
+        <button onclick="selectUser ('King')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">King</button>
+        <button onclick="selectUser ('Marvel')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Marvel</button>
+        <button onclick="selectUser ('Ruko')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Ruko</button>
+        <button onclick="selectUser ('Sadbor')" class="bg-blue-500 text-white rounded-full px-4 py-2 mx-2">Sadbor</button>
+      </div>
+    </div>
+    <!-- Chat section -->
+    <div class="bg-blue-600 rounded-3xl p-6">
+      <h2 id="chat-header" class="text-3xl font-bold mb-4">Chat with...</h2>
+      <div id="chat-box" class="overflow-y-auto h-48 border border-gray-400 rounded p-4 mb-4 bg-gray-700">
+        <!-- Chat messages will be appended here -->
+      </div>
+      <input type="text" id="message-input" placeholder="Type your message..." class="w-full p-2 rounded bg-gray-700 text-white" />
+      <button onclick="sendMessage()" class="mt-2 w-full bg-gray-600 rounded-full py-2 text-lg text-black hover:bg-gray-700 transition">Send</button>
+    </div>
+  </main>
+</body>
+</html>
